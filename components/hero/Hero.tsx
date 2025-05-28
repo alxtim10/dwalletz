@@ -5,7 +5,7 @@ const Hero = () => {
     return (
         <div className='flex flex-col items-center justify-center'>
             <div className='relative w-[350px] h-[230px] mt-32'>
-                <Image src="/images/hero.jpg" alt='hero' objectFit='cover' fill />
+                <Image src="/images/597.jpg" alt='hero' objectFit='cover' fill />
             </div>
             <h1 className="mt-3 bg-gradient-to-r text-center text-transparent inline-block bg-clip-text from-[#2D7FCA] via-[#2b71b2] to-[#093157] font-semibold">
                 <span className='text-4xl font-bold'>Real-Time Wallet Tracking</span>
