@@ -13,7 +13,7 @@ const Hero = () => {
                 <span className='text-4xl font-bold'>Zero Guesswork</span>
             </h1>
             <h1 className='font-bold text-[14px] text-center mt-4 text-[#6e6e6e]'>Next-gen wallet tracking built for the decentralized future.</h1>
-            <div className='flex items-center justify-center mt-10'>
+            <div className='flex items-center justify-center mt-5'>
                 <button
                     className='shadow-xl bg-gradient-to-r from-[#2D7FCA] via-[#579bda] to-[#64a0d8] text-white px-5 py-3 rounded-sm font-bold'>
                     Manage Portofolio
