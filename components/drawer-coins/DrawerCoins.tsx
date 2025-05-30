@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Drawer,
   DrawerClose,
@@ -8,13 +10,42 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { market_data } from "@/constants";
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import { useDrawerCoins } from "./hooks";
+import { useState } from "react";
 
-export default function DrawerCoins() {
+interface DrawerCoinsProps {
+  image?: string;
+  coin?: string;
+  disabled?: boolean;
+}
+
+export default function DrawerCoins({
+  image,
+  coin,
+  disabled,
+}: DrawerCoinsProps) {
+  const [selected, setSelected] = useState<{ image: string; name: string }>({
+    image: image ?? market_data[0].image,
+    name: coin ?? market_data[0].symbol,
+  });
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <button>Open Drawer</button>
+        <button disabled={disabled} className="flex items-center gap-1">
+          <Image
+            src={selected.image}
+            alt="symbol"
+            width={20}
+            height={20}
+          />
+          <span className="uppercase font-bold ml-1 mt-1">
+            {selected.name}
+          </span>
+          {!disabled && <ChevronDown className="w-4 mt-1" />}
+        </button>
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-h-[550px] overflow-auto custom-scrollbar">
@@ -29,7 +60,10 @@ export default function DrawerCoins() {
               const roundedResult = Math.round(price * 100) / 100;
 
               return (
-                <div key={i} className="w-full cursor-pointer hover:bg-[#131313] transition-all px-4 py-2">
+                <div
+                  key={i}
+                  className="w-full cursor-pointer hover:bg-[#131313] transition-all px-4 py-2"
+                >
                   <div className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-2">
                       <Image
@@ -48,7 +82,7 @@ export default function DrawerCoins() {
                     <h1 className="text-ellipsis max-w-44 line-clamp-1">
                       {item.name}
                     </h1>
-                    <h1 className="">{roundedResult} USDT</h1>
+                    <h1>{roundedResult} USDT</h1>
                   </div>
                 </div>
               );
