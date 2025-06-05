@@ -14,35 +14,34 @@ import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { useDrawerCoins } from "./hooks";
 import { useState } from "react";
+import { SelectedCoins } from "@/interfaces";
 
 interface DrawerCoinsProps {
-  image?: string;
-  coin?: string;
+  image: string;
+  symbol: string;
   disabled?: boolean;
+  setSelected?: React.Dispatch<React.SetStateAction<SelectedCoins>>
 }
 
 export default function DrawerCoins({
   image,
-  coin,
+  symbol,
   disabled,
+  setSelected
 }: DrawerCoinsProps) {
-  const [selected, setSelected] = useState<{ image: string; name: string }>({
-    image: image ?? market_data[0].image,
-    name: coin ?? market_data[0].symbol,
-  });
 
   return (
     <Drawer>
       <DrawerTrigger asChild>
         <button disabled={disabled} className="flex items-center gap-1">
           <Image
-            src={selected.image}
+            src={image}
             alt="symbol"
             width={20}
             height={20}
           />
           <span className="uppercase font-bold ml-1 mt-1">
-            {selected.name}
+            {symbol}
           </span>
           {!disabled && <ChevronDown className="w-4 mt-1" />}
         </button>
@@ -60,9 +59,15 @@ export default function DrawerCoins({
               const roundedResult = Math.round(price * 100) / 100;
 
               return (
-                <div
+                <DrawerClose
                   key={i}
                   className="w-full cursor-pointer hover:bg-[#131313] transition-all px-4 py-2"
+                  onClick={() => {
+                    setSelected && setSelected({
+                      image: item.image,
+                      symbol: item.symbol
+                    })
+                  }}
                 >
                   <div className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-2">
@@ -84,7 +89,7 @@ export default function DrawerCoins({
                     </h1>
                     <h1>{roundedResult} USDT</h1>
                   </div>
-                </div>
+                </DrawerClose>
               );
             })}
           </div>

@@ -1,22 +1,18 @@
 "use client";
 import DrawerCoins from "@/components/drawer-coins/DrawerCoins";
+import { market_data } from "@/constants";
+import { SelectedCoins } from "@/interfaces";
 import { ArrowDown, ArrowLeft, DeleteIcon } from "lucide-react";
 import React, { useState } from "react";
+
 
 const Deposit = () => {
   const [capital, setCapital] = useState<number>();
   const [receive, setReceive] = useState<number>();
-
-  const handleCapitalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target) {
-      setCapital(Number(e.target.value));
-    }
-  };
-  const handleReceiveChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target) {
-      setReceive(Number(e.target.value));
-    }
-  };
+  const [selected, setSelected] = useState<SelectedCoins>({
+    image: market_data[0].image,
+    symbol: market_data[0].symbol,
+  });
 
   return (
     <section className="p-5 h-screen flex flex-col items-center justify-between w-full">
@@ -35,7 +31,7 @@ const Deposit = () => {
             <div className="flex items-center justify-between mt-3">
               <DrawerCoins
                 disabled
-                coin="USDT"
+                symbol="USDT"
                 image="https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661"
               />
               <input
@@ -49,7 +45,11 @@ const Deposit = () => {
           <div className="bg-[#2c2c2c] p-5 mt-3 rounded-2xl">
             <h1 className="text-xs">Receive</h1>
             <div className="flex items-center justify-between mt-3">
-              <DrawerCoins />
+              <DrawerCoins
+                symbol={selected.symbol}
+                image={selected.image}
+                setSelected={setSelected}
+              />
               <input
                 type="number"
                 value={receive}
