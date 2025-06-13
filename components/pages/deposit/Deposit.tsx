@@ -1,7 +1,9 @@
 "use client";
 import DrawerCoins from "@/components/drawer-coins/DrawerCoins";
 import { market_data } from "@/constants";
-import { SelectedCoins } from "@/interfaces";
+import { SelectedCoins, UserAsset } from "@/interfaces";
+import { useAppDispatch } from "@/stores";
+import { addAsset } from "@/stores/slices/assets";
 import { ArrowDown, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,13 +11,17 @@ import { useState } from "react";
 
 const Deposit = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [capital, setCapital] = useState<string>(''); // use string instead of number
   const [receive, setReceive] = useState<string>('0');
   const [selected, setSelected] = useState<SelectedCoins>({
+    id: market_data[0].id,
+    name: market_data[0].name,
     image: market_data[0].image,
     symbol: market_data[0].symbol,
     current_price: market_data[0].current_price
   });
+  const [selectedCoins, setSelectedCoins] = useState<UserAsset>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
@@ -27,22 +33,36 @@ const Deposit = () => {
       if (coin) {
         const size = parsed / coin.current_price;
         setReceive(size.toFixed(8));
-      }
+        setSelectedCoins({
+          amount: Number(size.toFixed(8)),
+          id: selected.id,
+          image: selected.image,
+          symbol: selected.symbol,
+          name: selected.name
+        })
+      };
     } else {
       setReceive('0');
     }
   };
+
+  const handleDeposit = () => {
+    if (selectedCoins) {
+      dispatch(addAsset(selectedCoins));
+      router.push('/dashboard');
+    }
+  }
 
   return (
     <section className="p-5 h-screen flex flex-col items-center justify-between w-full">
       <div className="w-full">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center justify-center gap-5">
-            <ArrowLeft 
-            onClick={() => {
-              router.back();
-            }}
-            className="w-5 cursor-pointer" />
+            <ArrowLeft
+              onClick={() => {
+                router.back();
+              }}
+              className="w-5 cursor-pointer" />
             <h1 className="font-bold text-xl">Asset Deposit</h1>
           </div>
           <button className="rounded-full bg-maintext h-8 w-8 shadow-md"></button>
@@ -84,7 +104,11 @@ const Deposit = () => {
         <h1 className="text-center text-xs mt-2 text-[#707070]">1 USDT = {(1 / selected.current_price).toFixed(12)} {selected.symbol.toUpperCase()}</h1>
       </div>
       <div className="w-full pb-10">
-        <button className="text-sm w-full bg-maintext text-black p-3 rounded-lg font-bold mt-5">
+        <button
+          onClick={() => {
+            handleDeposit();
+          }}
+          className="text-sm w-full bg-maintext text-black p-3 rounded-lg font-bold mt-5">
           Deposit
         </button>
       </div>

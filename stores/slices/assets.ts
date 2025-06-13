@@ -21,13 +21,16 @@ const cryptoSlice = createSlice({
       state.assets = action.payload;
     },
     addAsset(state, action: PayloadAction<UserAsset>) {
-      state.assets.push(action.payload);
-    },
-    updateAsset(state, action: PayloadAction<UserAsset>) {
       const index = state.assets.findIndex(asset => asset.id === action.payload.id);
       if (index !== -1) {
-        state.assets[index] = action.payload;
+        let existing = state.assets[index];
+        existing.amount += action.payload.amount;
+      } else {
+        state.assets.push(action.payload);
       }
+    },
+    updateAsset(state, action: PayloadAction<UserAsset>) {
+      
     },
     removeAsset(state, action: PayloadAction<string>) {
       state.assets = state.assets.filter(asset => asset.id !== action.payload);

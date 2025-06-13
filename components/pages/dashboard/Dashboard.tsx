@@ -27,13 +27,30 @@ const Dashboard = () => {
         const price = item.amount * coin?.current_price;
         const roundedNumber = Math.round(item.amount * 1000) / 1000;
         const roundedResult = Math.round(price * 100) / 100;
-        setTotalAmount(prev => prev + roundedResult);
         return { roundedNumber, roundedResult };
       } else {
-        return { roundedNumber: 0, roundedResult: 0};
+        return { roundedNumber: 0, roundedResult: 0 };
       }
     });
     setRandomizedAssets(randomized);
+
+    let tempCoins: { amount: number, price: number }[] = assets.map((data) => {
+      let coin = market_data.find((item) => item.symbol == data.symbol);
+      if (coin) {
+        let amount = data.amount * coin.current_price;
+        return {
+          amount: data.amount,
+          price: amount
+        }
+      } else {
+        return {
+          amount: 0, price: 0
+        }
+      }
+    })
+    let total = tempCoins.reduce((sum, asset) => sum + asset?.price, 0);
+    setTotalAmount(total);
+
   }, []);
 
   return (

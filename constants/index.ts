@@ -2878,3 +2878,5 @@ export const initial_market_data: UserAsset[] = [
         "amount": 23584
     }
 ]
+
+export const currency = ['USD', 'EUR', 'IDR']; 

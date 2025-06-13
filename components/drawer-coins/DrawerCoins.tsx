@@ -64,6 +64,8 @@ export default function DrawerCoins({
                   className="w-full cursor-pointer hover:bg-[#131313] transition-all px-4 py-2"
                   onClick={() => {
                     setSelected && setSelected({
+                      id: item.id,
+                      name: item.name,
                       image: item.image,
                       symbol: item.symbol,
                       current_price: item.current_price
