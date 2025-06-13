@@ -65,7 +65,8 @@ export default function DrawerCoins({
                   onClick={() => {
                     setSelected && setSelected({
                       image: item.image,
-                      symbol: item.symbol
+                      symbol: item.symbol,
+                      current_price: item.current_price
                     })
                   }}
                 >

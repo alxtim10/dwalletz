@@ -1,4 +1,6 @@
-export const market_data = [
+import { CryptoAsset, UserAsset } from "@/interfaces";
+
+export const market_data: CryptoAsset[] = [
     {
         "id": "bitcoin",
         "symbol": "btc",
@@ -2850,5 +2852,29 @@ export const market_data = [
         "atl_date": "2021-07-06T01:11:20.438Z",
         "roi": null,
         "last_updated": "2025-05-28T13:34:20.671Z"
+    }
+]
+
+export const initial_market_data: UserAsset[] = [
+    {
+        "id": "bitcoin",
+        "symbol": "btc",
+        "name": "Bitcoin",
+        "image": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+        "amount": 0.35
+    },
+    {
+        "id": "ethereum",
+        "symbol": "eth",
+        "name": "Ethereum",
+        "image": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628",
+        "amount": 0.413
+    },
+    {
+        "id": "tether",
+        "symbol": "usdt",
+        "name": "Tether",
+        "image": "https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661",
+        "amount": 23584
     }
 ]
