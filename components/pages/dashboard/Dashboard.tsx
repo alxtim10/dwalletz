@@ -1,5 +1,6 @@
 'use client';
 
+import { DialogExpense } from "@/components/dialog-expense/DialogExpense";
 import Overview from "@/components/overview/Overview";
 import { market_data } from "@/constants";
 import { useAppSelector } from "@/stores";
@@ -51,7 +52,7 @@ const Dashboard = () => {
     let total = tempCoins.reduce((sum, asset) => sum + asset?.price, 0);
     setTotalAmount(total);
 
-  }, []);
+  }, [assets]);
 
   return (
     <div className="p-5">
@@ -70,7 +71,9 @@ const Dashboard = () => {
         >
           Deposit
         </button>
-        <h1 className="w-full font-bold text-[#e0e0e0] cursor-pointer">Reduce</h1>
+        <h1 className="w-full font-bold text-[#e0e0e0] cursor-pointer">
+          <DialogExpense />
+        </h1>
       </div>
 
       <div className="mt-6 flex items-center justify-between">

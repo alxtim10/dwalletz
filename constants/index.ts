@@ -1,4 +1,4 @@
-import { CryptoAsset, UserAsset } from "@/interfaces";
+import { CryptoAsset, Currency, UserAsset } from "@/interfaces";
 
 export const market_data: CryptoAsset[] = [
     {
@@ -2879,4 +2879,4 @@ export const initial_market_data: UserAsset[] = [
     }
 ]
 
-export const currency = ['USD', 'EUR', 'IDR']; 
+export const currency : Currency[] = ['USD', 'EUR', 'IDR']; 

@@ -42,3 +42,5 @@ export interface UserAsset {
   image: string;
   amount: number;
 }
+
+export type Currency = 'EUR' | 'IDR' | 'USD';

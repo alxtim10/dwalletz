@@ -29,8 +29,9 @@ const cryptoSlice = createSlice({
         state.assets.push(action.payload);
       }
     },
-    updateAsset(state, action: PayloadAction<UserAsset>) {
-      
+    updateAsset(state, action: PayloadAction<{amount: number, id: string}>) {
+      const index = state.assets.findIndex(asset => asset.id == action.payload.id);
+      state.assets[index].amount -= action.payload.amount;
     },
     removeAsset(state, action: PayloadAction<string>) {
       state.assets = state.assets.filter(asset => asset.id !== action.payload);
